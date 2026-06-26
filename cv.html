@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Felipe Salas C. · Senior Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --text:    #111827;
+      --text-2:  #374151;
+      --muted:   #6B7280;
+      --border:  #E5E7EB;
+      --blue:    #1D4ED8;
+      --blue-l:  #EFF6FF;
+      --green:   #15803D;
+      --green-l: #F0FDF4;
+    }
+
+    html { font-size: 10.5pt; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─── PRINT TOOLBAR (no imprime) ─── */
+    .toolbar {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 10px;
+      z-index: 999;
+    }
+    .toolbar button, .toolbar a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      border: none;
+    }
+    .btn-print { background: #1D4ED8; color: #fff; }
+    .btn-print:hover { background: #1E40AF; }
+    .btn-back { background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB; }
+    .btn-back:hover { background: #E5E7EB; }
+    @media print { .toolbar { display: none !important; } }
+
+    /* ─── PAGE ─── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 16mm 18mm;
+    }
+
+    @page { size: A4; margin: 0; }
+    @media print {
+      html, body { width: 210mm; }
+      .page { padding: 14mm 16mm; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+    }
+
+    /* ─── HEADER ─── */
+    .cv-header {
+      border-bottom: 2.5px solid var(--blue);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .cv-name {
+      font-size: 24pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .cv-title {
+      font-size: 12pt;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .cv-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+    .cv-contact a { color: var(--blue); text-decoration: none; }
+
+    /* ─── SECCIÓN ─── */
+    .cv-section { margin-bottom: 14px; }
+    .cv-section-title {
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ─── SUMMARY ─── */
+    .cv-summary {
+      font-size: 9pt;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ─── METRICS ─── */
+    .cv-metrics {
+      display: flex;
+      gap: 0;
+      background: var(--blue-l);
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .cv-metric {
+      flex: 1;
+      text-align: center;
+      padding: 6px 8px;
+      border-right: 1px solid #BFDBFE;
+    }
+    .cv-metric:last-child { border-right: none; }
+    .cv-metric-num {
+      font-size: 14pt;
+      font-weight: 800;
+      color: var(--blue);
+      display: block;
+      line-height: 1;
+    }
+    .cv-metric-label {
+      font-size: 7pt;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    /* ─── EXPERIENCIA ─── */
+    .cv-exp { margin-bottom: 12px; page-break-inside: avoid; }
+    .cv-exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .cv-exp-company {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .cv-exp-period {
+      font-size: 8.5pt;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .cv-exp-role {
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--blue);
+      margin-bottom: 5px;
+    }
+    .cv-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 5px;
+    }
+    .cv-bullets li {
+      display: flex;
+      gap: 8px;
+      font-size: 8.5pt;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .cv-bullets li::before {
+      content: '→';
+      color: var(--blue);
+      flex-shrink: 0;
+      font-size: 8pt;
+      margin-top: 1px;
+    }
+    .cv-bullets li strong { color: var(--text); font-weight: 600; }
+    .cv-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .cv-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      padding: 1px 7px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      background: #F9FAFB;
+    }
+    .cv-tag.int {
+      color: var(--blue);
+      border-color: #BFDBFE;
+      background: var(--blue-l);
+    }
+
+    /* ─── DIVIDER ─── */
+    .cv-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 10px 0;
+    }
+
+    /* ─── HISTORIAL ─── */
+    .cv-history { display: flex; flex-direction: column; gap: 6px; }
+    .cv-h-item {}
+    .cv-h-item strong {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .cv-h-item span {
+      font-size: 8pt;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .cv-h-item p {
+      font-size: 8pt;
+      color: var(--text-2);
+      margin-top: 1px;
+    }
+
+    /* ─── PROYECTOS ─── */
+    .cv-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cv-project { page-break-inside: avoid; }
+    .cv-project-title {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .cv-project-co {
+      font-size: 7.5pt;
+      color: var(--blue);
+      margin-bottom: 3px;
+    }
+    .cv-project-desc {
+      font-size: 8pt;
+      color: var(--text-2);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .badge-prod {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 7pt;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-l);
+      border: 1px solid #BBF7D0;
+      padding: 1px 7px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+
+    /* ─── STACK ─── */
+    .cv-stack { display: flex; flex-direction: column; gap: 6px; }
+    .cv-stack-row { display: flex; gap: 6px; align-items: baseline; }
+    .cv-stack-cat {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 90px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .cv-stack-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+
+    /* ─── CERTIFICATIONS ─── */
+    .cv-certs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .cv-cert {
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--blue);
+      border-radius: 4px;
+      background: #F9FAFB;
+    }
+    .cv-cert-issuer {
+      font-size: 7pt;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 3px;
+    }
+    .cv-cert-name {
+      font-size: 8pt;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .cv-cert-year { font-size: 7.5pt; color: var(--muted); margin-top: 2px; }
+
+    .cv-courses-title {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .cv-courses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 24px;
+    }
+    .cv-course {
+      font-size: 7.5pt;
+      color: var(--text-2);
+      display: flex;
+      gap: 6px;
+    }
+    .cv-course-code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    /* ─── EDUCACIÓN ─── */
+    .cv-edu { display: flex; flex-direction: column; gap: 7px; }
+    .cv-edu-item {}
+    .cv-edu-item h4 {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .cv-edu-item span {
+      font-size: 8pt;
+      color: var(--muted);
+    }
+    .cv-edu-badge {
+      font-size: 7pt;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: var(--green-l);
+      color: var(--green);
+      border: 1px solid #BBF7D0;
+      margin-left: 6px;
+    }
+
+    /* ─── IDIOMAS ─── */
+    .cv-langs {
+      display: flex;
+      gap: 16px;
+    }
+    .cv-lang {
+      font-size: 9pt;
+      color: var(--text-2);
+    }
+    .cv-lang strong { color: var(--text); font-weight: 600; }
+
+    /* ─── TWO-COL layout (page 2) ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── TOOLBAR ─── -->
+<div class="toolbar">
+  <a href="index.html" class="btn-back">← Volver</a>
+  <button class="btn-print" onclick="window.print()">⬇ Descargar PDF</button>
+</div>
+
+<!-- ════════════ PÁGINA 1 ════════════ -->
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="cv-header">
+    <div class="cv-name">Felipe Salas C.</div>
+    <div class="cv-title">Senior Full Stack Developer — Integraciones · APIs REST · Automatización de Procesos</div>
+    <div class="cv-contact">
+      <span>📧 <a href="mailto:fasc86@gmail.com">fasc86@gmail.com</a></span>
+      <span>📍 La Serena, Chile · Remoto LATAM + España</span>
+      <span>💼 <a href="[TU_URL_LINKEDIN]">LinkedIn</a></span>
+      <span>💻 <a href="[TU_URL_GITHUB]">GitHub</a></span>
+      <span>🌐 <a href="https://[TU_USUARIO_GITHUB].github.io">Portfolio</a></span>
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="cv-section">
+    <div class="cv-section-title">Perfil Profesional</div>
+    <p class="cv-summary">Desarrollador Full Stack Senior con <strong>18 años de experiencia</strong> en integración de sistemas y automatización de procesos para plataformas de eCommerce y marketing digital. He integrado en producción más de <strong>10 plataformas externas</strong> (Twilio, Ontraport, Magento, Shopify, DHL, FedEx y más) desarrollando <strong>+50 endpoints REST</strong> con Laravel, PHP, Vue.js, Docker y AWS. Experiencia laboral en <strong>Chile, España y México</strong>. Especializado en construir las capas de integración que conectan ecosistemas digitales complejos.</p>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <div class="cv-metrics">
+    <div class="cv-metric"><span class="cv-metric-num">18</span><span class="cv-metric-label">Años de<br>experiencia</span></div>
+    <div class="cv-metric"><span class="cv-metric-num">+50</span><span class="cv-metric-label">Endpoints REST<br>en producción</span></div>
+    <div class="cv-metric"><span class="cv-metric-num">+10</span><span class="cv-metric-label">Plataformas<br>integradas</span></div>
+    <div class="cv-metric"><span class="cv-metric-num">3</span><span class="cv-metric-label">Países con<br>experiencia</span></div>
+    <div class="cv-metric"><span class="cv-metric-num">13</span><span class="cv-metric-label">Cursos<br>Microsoft</span></div>
+  </div>
+
+  <!-- EXPERIENCIA -->
+  <section class="cv-section">
+    <div class="cv-section-title">Experiencia Profesional</div>
+
+    <!-- Taktikdata -->
+    <div class="cv-exp">
+      <div class="cv-exp-header">
+        <span class="cv-exp-company">Taktikdata</span>
+        <span class="cv-exp-period">2024 – Actual · México (remoto desde Chile)</span>
+      </div>
+      <div class="cv-exp-role">Senior Backend &amp; Integrations Engineer</div>
+      <ul class="cv-bullets">
+        <li>Diseñé e implementé <strong>+50 endpoints REST</strong> con Laravel para conectar plataformas de eCommerce, CRM, mensajería y logística en producción</li>
+        <li>Integré <strong>7 plataformas logísticas</strong> del mercado mexicano (SkydropX, DHL, FedEx, Estafeta, Paquetexpress, 99Minutos, AMPM) — sistema unificado de cotización, generación de guías y tracking</li>
+        <li>Desarrollé el <strong>ecosistema digital de NAOS México</strong> (Bioderma, Institut Esthederm, Etat Pur): plataforma de eventos médicos con registro QR, quiz con premios y rally digital para congresos</li>
+        <li>Automaticé flujos de marketing con <strong>Ontraport</strong> y configuré atención al cliente con <strong>Twilio Flex, Studio, Conversations y TaskRouter</strong></li>
+        <li>Integré <strong>Shopify, Magento REST API, Google Sheets API</strong> y <strong>WhatsApp Business API</strong> en soluciones desacopladas con Docker y AWS (EC2, S3, RDS)</li>
+      </ul>
+      <div class="cv-tags">
+        <span class="cv-tag">Laravel</span><span class="cv-tag">PHP 8</span>
+        <span class="cv-tag">MySQL</span><span class="cv-tag">Docker</span>
+        <span class="cv-tag">AWS</span><span class="cv-tag">Vue.js</span>
+        <span class="cv-tag int">Twilio</span><span class="cv-tag int">Ontraport</span>
+        <span class="cv-tag int">Shopify</span><span class="cv-tag int">Magento API</span>
+        <span class="cv-tag int">WhatsApp API</span><span class="cv-tag int">DHL/FedEx</span>
+        <span class="cv-tag int">Google Sheets API</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <!-- I2B -->
+    <div class="cv-exp">
+      <div class="cv-exp-header">
+        <span class="cv-exp-company">I2B Technologies</span>
+        <span class="cv-exp-period">2022 – 2024 · Santiago, Chile</span>
+      </div>
+      <div class="cv-exp-role">Senior Full Stack Developer · Software Factory</div>
+      <ul class="cv-bullets">
+        <li>Gestioné en paralelo <strong>3 a 6 proyectos simultáneos</strong> para clientes corporativos en retail, eCommerce y servicios</li>
+        <li>Lideré <strong>migraciones de sistemas legacy</strong> (PHP 5, ASP.NET) a PHP 8 + Laravel + APIs REST sin interrupciones de operación</li>
+        <li>Definí arquitectura técnica, estimaciones y estándares de implementación; actué como referente técnico del equipo</li>
+      </ul>
+      <div class="cv-tags">
+        <span class="cv-tag">PHP 8</span><span class="cv-tag">Laravel</span>
+        <span class="cv-tag">MySQL</span><span class="cv-tag">PostgreSQL</span>
+        <span class="cv-tag">REST APIs</span><span class="cv-tag">Docker</span>
+        <span class="cv-tag">Nginx</span><span class="cv-tag">Linux</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <!-- Ingenia -->
+    <div class="cv-exp">
+      <div class="cv-exp-header">
+        <span class="cv-exp-company">Ingenia Global</span>
+        <span class="cv-exp-period">2017 – 2022 · Santiago, Chile</span>
+      </div>
+      <div class="cv-exp-role">Full Stack Developer → Senior Full Stack Developer · Agencia Digital</div>
+      <ul class="cv-bullets">
+        <li>Desarrollé <strong>módulos personalizados en Magento 2</strong> con integraciones a APIs externas, plataformas logísticas y CRMs</li>
+        <li>Construí y mantuve plataformas <strong>WordPress/WooCommerce</strong> (~6 años): sitios corporativos, tiendas, plugins a medida y optimización</li>
+        <li>Integré <strong>Twilio</strong> (Flex, Studio, Conversations, TaskRouter), <strong>Ontraport</strong> y <strong>WhatsApp Business API</strong> en producción</li>
+        <li>Evolución orgánica a Senior: definición técnica, estimaciones, revisión de implementaciones — <strong>todos los sistemas siguen en producción</strong></li>
+      </ul>
+      <div class="cv-tags">
+        <span class="cv-tag">PHP</span><span class="cv-tag">Laravel</span>
+        <span class="cv-tag">Magento 2</span><span class="cv-tag">WordPress</span>
+        <span class="cv-tag">WooCommerce</span><span class="cv-tag">Vue.js</span>
+        <span class="cv-tag">MySQL</span><span class="cv-tag">AWS</span>
+        <span class="cv-tag int">Twilio</span><span class="cv-tag int">Ontraport</span>
+        <span class="cv-tag int">WhatsApp API</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <!-- Historia -->
+    <div class="cv-history">
+      <div class="cv-h-item">
+        <strong>Ministerio de Educación</strong>
+        <span>Dic 2012 – Sep 2015 · Santiago, Chile · Analista Programador</span>
+        <p>Sistemas de gestión de Becas Chile (DIVESUP). Postulación, admisibilidad, seguimiento de becarios. ASP.NET C#, SQL Server.</p>
+      </div>
+      <div class="cv-h-item">
+        <strong>Ministerio de Justicia</strong>
+        <span>Jul 2011 – Dic 2012 · Santiago, Chile · Analista Programador</span>
+        <p>Sistemas para Dirección de Gestión y Modernización de la Justicia. ASP.NET C#, SQL Server, PHP.</p>
+      </div>
+      <div class="cv-h-item">
+        <strong>ONG Acción contra el Hambre</strong>
+        <span>May – Jul 2016 · Madrid, España · Técnico IT</span>
+        <p>Migración de servidores e infraestructura IT en organización internacional con operaciones en múltiples países.</p>
+      </div>
+      <div class="cv-h-item">
+        <strong>Techmill</strong>
+        <span>Ene 2008 – Jul 2011 · Santiago, Chile · Asistente de Gerencia de Operaciones</span>
+        <p>IT, VoIP, administración de bases de datos, dominios y redes. Automatización de reportes con macros.</p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- fin página 1 -->
+
+<!-- ════════════ PÁGINA 2 ════════════ -->
+<div class="page">
+
+  <!-- PROYECTOS -->
+  <section class="cv-section">
+    <div class="cv-section-title">Proyectos Destacados</div>
+    <div class="cv-projects">
+
+      <div class="cv-project">
+        <div class="badge-prod">● En producción</div>
+        <div class="cv-project-title">Ecosistema Digital NAOS México</div>
+        <div class="cv-project-co">Taktikdata · 2024–Actual · Bioderma · Institut Esthederm · Etat Pur</div>
+        <div class="cv-project-desc">Plataforma de eventos médicos con registro QR, quiz y sistema de premios, rally digital para congresos. Integración completa con Ontraport, Twilio y WhatsApp Business API.</div>
+        <div class="cv-tags"><span class="cv-tag">Laravel</span><span class="cv-tag int">Twilio</span><span class="cv-tag int">Ontraport</span><span class="cv-tag int">WhatsApp</span><span class="cv-tag">AWS</span></div>
+      </div>
+
+      <div class="cv-project">
+        <div class="badge-prod">● En producción</div>
+        <div class="cv-project-title">Integración Logística Multicarrier</div>
+        <div class="cv-project-co">Taktikdata · 2024–Actual · 7 carriers mexicanos</div>
+        <div class="cv-project-desc">Sistema unificado de cotización, generación de guías y tracking para SkydropX, DHL, FedEx, Estafeta, Paquetexpress, 99Minutos y AMPM desde una sola capa de abstracción.</div>
+        <div class="cv-tags"><span class="cv-tag">Laravel</span><span class="cv-tag int">DHL</span><span class="cv-tag int">FedEx</span><span class="cv-tag int">SkydropX</span></div>
+      </div>
+
+      <div class="cv-project">
+        <div class="badge-prod">● En producción</div>
+        <div class="cv-project-title">Automatización CRM + Mensajería Omnicanal</div>
+        <div class="cv-project-co">Taktikdata + Ingenia · 2019–Actual</div>
+        <div class="cv-project-desc">Nurturing automatizado, notificaciones de pedidos y atención al cliente con escalamiento a agentes. Ontraport + Twilio + WhatsApp + ClickSend.</div>
+        <div class="cv-tags"><span class="cv-tag int">Twilio</span><span class="cv-tag int">Ontraport</span><span class="cv-tag int">WhatsApp</span><span class="cv-tag">Laravel</span></div>
+      </div>
+
+      <div class="cv-project">
+        <div class="badge-prod">● En producción</div>
+        <div class="cv-project-title">Migraciones Legacy → PHP 8 + Laravel</div>
+        <div class="cv-project-co">I2B Technologies · 2022–2024 · Clientes corporativos</div>
+        <div class="cv-project-desc">Migración de sistemas PHP 5 y ASP.NET a PHP 8 + Laravel + REST APIs para retail y eCommerce chileno, sin downtime operacional y con validación progresiva.</div>
+        <div class="cv-tags"><span class="cv-tag">PHP 8</span><span class="cv-tag">Laravel</span><span class="cv-tag">MySQL</span><span class="cv-tag">Docker</span></div>
+      </div>
+
+      <div class="cv-project">
+        <div class="badge-prod">● En producción</div>
+        <div class="cv-project-title">Plataformas Magento 2 + WooCommerce</div>
+        <div class="cv-project-co">Ingenia Global · 2017–2022</div>
+        <div class="cv-project-desc">Tiendas Magento 2 con módulos PHP personalizados, integradas con APIs logísticas y CRMs. WordPress/WooCommerce con ~6 años de desarrollo y mantenimiento.</div>
+        <div class="cv-tags"><span class="cv-tag">Magento 2</span><span class="cv-tag">WooCommerce</span><span class="cv-tag">PHP</span><span class="cv-tag">AWS</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="cv-section">
+    <div class="cv-section-title">Stack Tecnológico</div>
+    <div class="cv-stack">
+      <div class="cv-stack-row">
+        <span class="cv-stack-cat">Backend</span>
+        <div class="cv-stack-tags">
+          <span class="cv-tag">PHP 8</span><span class="cv-tag">Laravel</span>
+          <span class="cv-tag">WordPress</span><span class="cv-tag">Magento 2</span>
+          <span class="cv-tag">WooCommerce</span><span class="cv-tag">Node.js</span>
+        </div>
+      </div>
+      <div class="cv-stack-row">
+        <span class="cv-stack-cat">Frontend</span>
+        <div class="cv-stack-tags">
+          <span class="cv-tag">JavaScript</span><span class="cv-tag">Vue.js</span>
+          <span class="cv-tag">jQuery</span><span class="cv-tag">HTML5 / CSS3</span>
+          <span class="cv-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="cv-stack-row">
+        <span class="cv-stack-cat">Bases de datos</span>
+        <div class="cv-stack-tags">
+          <span class="cv-tag">MySQL</span><span class="cv-tag">MariaDB</span>
+          <span class="cv-tag">PostgreSQL</span><span class="cv-tag">SQL Server</span>
+          <span class="cv-tag">Oracle ATP</span>
+        </div>
+      </div>
+      <div class="cv-stack-row">
+        <span class="cv-stack-cat">Cloud & DevOps</span>
+        <div class="cv-stack-tags">
+          <span class="cv-tag">AWS EC2/S3/RDS</span><span class="cv-tag">Docker</span>
+          <span class="cv-tag">Jenkins</span><span class="cv-tag">Git / GitHub</span>
+          <span class="cv-tag">Nginx</span><span class="cv-tag">Apache</span><span class="cv-tag">Linux</span>
+        </div>
+      </div>
+      <div class="cv-stack-row">
+        <span class="cv-stack-cat">Integraciones</span>
+        <div class="cv-stack-tags">
+          <span class="cv-tag int">Twilio</span><span class="cv-tag int">Ontraport</span>
+          <span class="cv-tag int">Shopify API</span><span class="cv-tag int">Magento REST API</span>
+          <span class="cv-tag int">WhatsApp Business API</span><span class="cv-tag int">ClickSend</span>
+          <span class="cv-tag int">Google Sheets API</span>
+          <span class="cv-tag int">DHL · FedEx · SkydropX · Estafeta · 99Minutos · AMPM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="two-col">
+
+    <!-- CERTIFICACIONES -->
+    <section class="cv-section">
+      <div class="cv-section-title">Certificaciones</div>
+      <div class="cv-certs" style="grid-template-columns: 1fr 1fr; margin-bottom:10px">
+        <div class="cv-cert">
+          <div class="cv-cert-issuer">Microsoft</div>
+          <div class="cv-cert-name">MCSA<br><em style="font-weight:400;color:#6B7280">[pendiente]</em></div>
+          <div class="cv-cert-year">2016</div>
+        </div>
+        <div class="cv-cert">
+          <div class="cv-cert-issuer">Microsoft</div>
+          <div class="cv-cert-name">MCSD<br><em style="font-weight:400;color:#6B7280">[pendiente]</em></div>
+          <div class="cv-cert-year">2016</div>
+        </div>
+        <div class="cv-cert" style="border-top-color:#D97706">
+          <div class="cv-cert-issuer" style="color:#D97706">DevOps</div>
+          <div class="cv-cert-name">Logs y Métricas<br><em style="font-weight:400;color:#6B7280">[plataforma pendiente]</em></div>
+        </div>
+        <div class="cv-cert" style="border-top-color:#D97706">
+          <div class="cv-cert-issuer" style="color:#D97706">DevOps</div>
+          <div class="cv-cert-name">Operaciones y Crecimiento<br><em style="font-weight:400;color:#6B7280">[plataforma pendiente]</em></div>
+        </div>
+      </div>
+      <div class="cv-courses-title">13 Cursos Microsoft Learning (Nov 2015 – Abr 2016)</div>
+      <div class="cv-courses-grid">
+        <div class="cv-course"><span class="cv-course-code">20483</span>Programar con C#</div>
+        <div class="cv-course"><span class="cv-course-code">20487</span>Windows Azure y Web Services</div>
+        <div class="cv-course"><span class="cv-course-code">20486A</span>ASP.NET MVC4</div>
+        <div class="cv-course"><span class="cv-course-code">20480</span>Consulta SQL Server 2014</div>
+        <div class="cv-course"><span class="cv-course-code">20464</span>Modelos de datos SQL Server</div>
+        <div class="cv-course"><span class="cv-course-code">20488</span>SharePoint 2013</div>
+        <div class="cv-course"><span class="cv-course-code">20462</span>Administración SQL Server</div>
+        <div class="cv-course"><span class="cv-course-code">20484</span>Windows Store Apps C# (Fund.)</div>
+        <div class="cv-course"><span class="cv-course-code">20465</span>Diseño soluciones SQL</div>
+        <div class="cv-course"><span class="cv-course-code">20485</span>Windows Store Apps C# (Adv.)</div>
+        <div class="cv-course"><span class="cv-course-code">20463</span>Data Warehouse SQL Server</div>
+        <div class="cv-course"><span class="cv-course-code">20466</span>Reportes SQL Server 2014</div>
+        <div class="cv-course"><span class="cv-course-code">20467</span>Business Intelligence SQL</div>
+      </div>
+    </section>
+
+    <div>
+      <!-- EDUCACIÓN -->
+      <section class="cv-section">
+        <div class="cv-section-title">Educación</div>
+        <div class="cv-edu">
+          <div class="cv-edu-item">
+            <h4>Ingeniería en Desarrollo de Software <span class="cv-edu-badge">En curso</span></h4>
+            <span>DUOC UC · 2026 – Actual</span>
+          </div>
+          <div class="cv-edu-item">
+            <h4>Posgrado: Consultor Microsoft</h4>
+            <span>Universidad La Salle, Madrid, España · 2015–2016</span>
+          </div>
+          <div class="cv-edu-item">
+            <h4>Analista Programador Computacional</h4>
+            <span>DUOC UC · 2009–2012</span>
+          </div>
+          <div class="cv-edu-item">
+            <h4>Técnico Electromecánico</h4>
+            <span>Esc. Industrial Talleres San Vicente de Paul · Egreso 2004</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- IDIOMAS -->
+      <section class="cv-section">
+        <div class="cv-section-title">Idiomas</div>
+        <div class="cv-langs">
+          <div class="cv-lang">🇨🇱 <strong>Español</strong> — Nativo</div>
+          <div class="cv-lang">🇬🇧 <strong>Inglés</strong> — B1/B2 · Lectura técnica fluida</div>
+        </div>
+      </section>
+
+      <!-- METODOLOGÍAS -->
+      <section class="cv-section">
+        <div class="cv-section-title">Metodologías</div>
+        <div class="cv-tags">
+          <span class="cv-tag">Scrum</span>
+          <span class="cv-tag">Kanban</span>
+          <span class="cv-tag">Lean</span>
+        </div>
+        <div style="font-size:7.5pt;color:var(--muted);margin-top:4px">Certificado Stratecno · 2016</div>
+      </section>
+    </div>
+
+  </div>
+
+</div><!-- fin página 2 -->
+
+</body>
+</html>
