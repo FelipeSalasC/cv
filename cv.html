@@ -62,18 +62,28 @@
     @media print { .toolbar { display: none !important; } }
 
     /* ─── PAGE ─── */
+    /* Pantalla: previsualización A4 */
     .page {
       width: 210mm;
       min-height: 297mm;
-      margin: 0 auto;
+      margin: 0 auto 12mm;
       padding: 16mm 18mm;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
     }
 
-    @page { size: A4; margin: 0; }
+    /* Impresión: flujo natural, sin páginas rígidas */
+    @page { size: A4; margin: 14mm 16mm; }
     @media print {
-      html, body { width: 210mm; }
-      .page { padding: 14mm 16mm; page-break-after: always; }
-      .page:last-child { page-break-after: auto; }
+      html, body { width: 210mm; margin: 0; padding: 0; background: #fff; }
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-after: auto;
+      }
     }
 
     /* ─── HEADER ─── */
@@ -156,7 +166,12 @@
     }
 
     /* ─── EXPERIENCIA ─── */
-    .cv-exp { margin-bottom: 12px; page-break-inside: avoid; }
+    .cv-exp { margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid; }
+    .cv-cert { page-break-inside: avoid; break-inside: avoid; }
+    .cv-edu-item { page-break-inside: avoid; break-inside: avoid; }
+    .cv-h-item { page-break-inside: avoid; break-inside: avoid; }
+    .cv-section { page-break-inside: avoid; break-inside: avoid; }
+    .two-col { page-break-inside: avoid; break-inside: avoid; }
     .cv-exp-header {
       display: flex;
       justify-content: space-between;
@@ -250,7 +265,7 @@
 
     /* ─── PROYECTOS ─── */
     .cv-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .cv-project { page-break-inside: avoid; }
+    .cv-project { page-break-inside: avoid; break-inside: avoid; }
     .cv-project-title {
       font-size: 9pt;
       font-weight: 600;
@@ -409,21 +424,21 @@
     <div class="cv-contact">
       <span>📧 <a href="mailto:fasc86@gmail.com">fasc86@gmail.com</a></span>
       <span>📍 La Serena, Chile · Remoto LATAM + España</span>
-      <span>💼 <a href="[TU_URL_LINKEDIN]">LinkedIn</a></span>
-      <span>💻 <a href="[TU_URL_GITHUB]">GitHub</a></span>
-      <span>🌐 <a href="https://[TU_USUARIO_GITHUB].github.io">Portfolio</a></span>
+      <span>💼 <a href="https://www.linkedin.com/in/felipe-salas-cordero-269280142">LinkedIn</a></span>
+      <span>💻 <a href="https://github.com/FelipeSalasC">GitHub</a></span>
+      <span>🌐 <a href="https://FelipeSalasC.github.io">Portfolio</a></span>
     </div>
   </header>
 
   <!-- SUMMARY -->
   <section class="cv-section">
     <div class="cv-section-title">Perfil Profesional</div>
-    <p class="cv-summary">Desarrollador Full Stack Senior con <strong>18 años de experiencia</strong> en integración de sistemas y automatización de procesos para plataformas de eCommerce y marketing digital. He integrado en producción más de <strong>10 plataformas externas</strong> (Twilio, Ontraport, Magento, Shopify, DHL, FedEx y más) desarrollando <strong>+50 endpoints REST</strong> con Laravel, PHP, Vue.js, Docker y AWS. Experiencia laboral en <strong>Chile, España y México</strong>. Especializado en construir las capas de integración que conectan ecosistemas digitales complejos.</p>
+    <p class="cv-summary">Desarrollador Full Stack Senior con <strong>15 años de experiencia</strong> en integración de sistemas y automatización de procesos para plataformas de eCommerce y marketing digital. He integrado en producción más de <strong>10 plataformas externas</strong> (Twilio, Ontraport, Magento, Shopify, DHL, FedEx y más) desarrollando <strong>+50 endpoints REST</strong> con Laravel, PHP, Vue.js, Docker y AWS. Experiencia laboral en <strong>Chile, España y México</strong>. Especializado en construir las capas de integración que conectan ecosistemas digitales complejos.</p>
   </section>
 
   <!-- MÉTRICAS -->
   <div class="cv-metrics">
-    <div class="cv-metric"><span class="cv-metric-num">18</span><span class="cv-metric-label">Años de<br>experiencia</span></div>
+    <div class="cv-metric"><span class="cv-metric-num">15</span><span class="cv-metric-label">Años de<br>experiencia</span></div>
     <div class="cv-metric"><span class="cv-metric-num">+50</span><span class="cv-metric-label">Endpoints REST<br>en producción</span></div>
     <div class="cv-metric"><span class="cv-metric-num">+10</span><span class="cv-metric-label">Plataformas<br>integradas</span></div>
     <div class="cv-metric"><span class="cv-metric-num">3</span><span class="cv-metric-label">Países con<br>experiencia</span></div>
@@ -525,12 +540,6 @@
         <span>May – Jul 2016 · Madrid, España · Técnico IT</span>
         <p>Migración de servidores e infraestructura IT en organización internacional con operaciones en múltiples países.</p>
       </div>
-      <div class="cv-h-item">
-        <strong>Techmill</strong>
-        <span>Ene 2008 – Jul 2011 · Santiago, Chile · Asistente de Gerencia de Operaciones</span>
-        <p>IT, VoIP, administración de bases de datos, dominios y redes. Automatización de reportes con macros.</p>
-      </div>
-    </div>
   </section>
 
 </div><!-- fin página 1 -->
@@ -640,24 +649,36 @@
     <!-- CERTIFICACIONES -->
     <section class="cv-section">
       <div class="cv-section-title">Certificaciones</div>
-      <div class="cv-certs" style="grid-template-columns: 1fr 1fr; margin-bottom:10px">
+      <div class="cv-certs" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom:10px">
         <div class="cv-cert">
           <div class="cv-cert-issuer">Microsoft</div>
-          <div class="cv-cert-name">MCSA<br><em style="font-weight:400;color:#6B7280">[pendiente]</em></div>
-          <div class="cv-cert-year">2016</div>
+          <div class="cv-cert-name">MCSA: Web Applications</div>
+          <div class="cv-cert-year">Sep 2016 · N° F814-5858</div>
         </div>
         <div class="cv-cert">
           <div class="cv-cert-issuer">Microsoft</div>
-          <div class="cv-cert-name">MCSD<br><em style="font-weight:400;color:#6B7280">[pendiente]</em></div>
-          <div class="cv-cert-year">2016</div>
+          <div class="cv-cert-name">MCSD: App Builder</div>
+          <div class="cv-cert-year">Sep 2016 · N° F814-5859</div>
+        </div>
+        <div class="cv-cert">
+          <div class="cv-cert-issuer">Microsoft</div>
+          <div class="cv-cert-name">MCSD: Web Applications</div>
+          <div class="cv-cert-year">May 2016 · N° F677-5515</div>
+        </div>
+        <div class="cv-cert">
+          <div class="cv-cert-issuer">MS Specialist</div>
+          <div class="cv-cert-name">HTML5 + JavaScript + CSS3</div>
+          <div class="cv-cert-year">May 2016 · N° F709-1777</div>
         </div>
         <div class="cv-cert" style="border-top-color:#D97706">
-          <div class="cv-cert-issuer" style="color:#D97706">DevOps</div>
-          <div class="cv-cert-name">Logs y Métricas<br><em style="font-weight:400;color:#6B7280">[plataforma pendiente]</em></div>
+          <div class="cv-cert-issuer" style="color:#D97706">Diplomado DevOps</div>
+          <div class="cv-cert-name">Logs y Métricas</div>
+          <div class="cv-cert-year">Abr 2021 · 24 hrs</div>
         </div>
         <div class="cv-cert" style="border-top-color:#D97706">
-          <div class="cv-cert-issuer" style="color:#D97706">DevOps</div>
-          <div class="cv-cert-name">Operaciones y Crecimiento<br><em style="font-weight:400;color:#6B7280">[plataforma pendiente]</em></div>
+          <div class="cv-cert-issuer" style="color:#D97706">Diplomado DevOps</div>
+          <div class="cv-cert-name">Operaciones y Escalamiento</div>
+          <div class="cv-cert-year">Mar 2021 · 50 hrs</div>
         </div>
       </div>
       <div class="cv-courses-title">13 Cursos Microsoft Learning (Nov 2015 – Abr 2016)</div>
